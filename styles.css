@@ -1,0 +1,292 @@
+:root {
+  /* Medical Maturity Palette */
+  --bg-color: #0d1117;
+  --medical-blue: #0077be;
+  --medical-teal: #00a8cc;
+  --bio-green: #28a745;
+  --malignant-red: #d9534f;
+  --nanobot-gold: #f0ad4e;
+  --glass-bg: rgba(255, 255, 255, 0.03);
+  --glass-border: rgba(255, 255, 255, 0.08);
+  --text-primary: #f0f2f5;
+  --text-secondary: #94a3b8;
+
+  /* Typography */
+  --font-header: 'Rajdhani', sans-serif;
+  --font-body: 'Inter', sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  background-color: var(--bg-color);
+  color: var(--text-primary);
+  font-family: var(--font-body);
+  overflow-x: hidden;
+  line-height: 1.6;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-header);
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/* Glassmorphism Utility */
+.glass-panel {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
+}
+
+/* CRT Scanline Effect Overlay - Removed for cleaner medical look */
+.scanline-overlay {
+  display: none;
+}
+
+/* Mission Ticker - Hidden for cleaner look */
+.mission-ticker {
+  display: none;
+}
+
+.ticker-content {
+  display: inline-block;
+  padding-left: 100%;
+  animation: ticker-scroll 20s linear infinite;
+}
+
+@keyframes ticker-scroll {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+
+  100% {
+    transform: translate3d(-100%, 0, 0);
+  }
+}
+
+/* Navigation */
+nav {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding: 1.5rem;
+  z-index: 900;
+  background: rgba(13, 17, 23, 0.95);
+  border-bottom: 1px solid var(--glass-border);
+  backdrop-filter: blur(10px);
+}
+
+.nav-link {
+  font-family: var(--font-header);
+  font-size: 1.2rem;
+  color: var(--text-secondary);
+  border: 1px solid transparent;
+  padding: 0.5rem 1rem;
+  transition: all 0.3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+  color: var(--medical-teal);
+  border-bottom: 2px solid var(--medical-teal);
+  background: transparent;
+}
+
+/* Main Layout */
+main {
+  padding-top: 100px;
+  min-height: 100vh;
+  padding-left: 2rem;
+  padding-right: 2rem;
+  max-width: 1400px;
+  margin: 0 auto;
+}
+
+/* Scanner Beam Transition - Subtle */
+.scanner-beam {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 2px;
+  background: var(--medical-teal);
+  box-shadow: 0 0 10px var(--medical-teal);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 10000;
+}
+
+@keyframes scan-wipe {
+  0% {
+    top: 0;
+    opacity: 1;
+  }
+
+  100% {
+    top: 100vh;
+    opacity: 0;
+  }
+}
+
+/* Intelligence Cards Grid */
+.card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.intel-card {
+  padding: 2rem;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.intel-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 8px 16px rgba(0, 255, 65, 0.1);
+  border-color: var(--bio-green);
+}
+
+.card-icon {
+  height: 80px;
+  margin-bottom: 1.5rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  /* SVG styling handled inline or via specific classes */
+}
+
+/* Buttons */
+.btn {
+  background: transparent;
+  border: 1px solid var(--bio-green);
+  color: var(--bio-green);
+  padding: 0.8rem 1.5rem;
+  font-family: var(--font-header);
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+}
+
+.btn:hover {
+  background: var(--bio-green);
+  color: #000;
+  box-shadow: 0 0 15px var(--bio-green);
+}
+
+/* Warning/Crimson Mode */
+.alert-malignant {
+  color: var(--malignant-red);
+  border-color: var(--malignant-red);
+}
+
+/* Helper for pulsing animations */
+@keyframes pulse-green {
+  0% {
+    box-shadow: 0 0 0 0 rgba(0, 255, 65, 0.4);
+  }
+
+  70% {
+    box-shadow: 0 0 0 10px rgba(0, 255, 65, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(0, 255, 65, 0.4);
+  }
+}
+
+/* Performance Benchmark Table */
+.benchmark-section {
+  margin-top: 4rem;
+  padding: 2rem;
+  border-top: 1px solid var(--glass-border);
+}
+
+.performance-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1.5rem;
+  font-family: var(--font-header);
+  background: var(--glass-bg);
+}
+
+.performance-table th,
+.performance-table td {
+  border: 1px solid var(--glass-border);
+  padding: 1rem;
+  text-align: left;
+}
+
+.performance-table th {
+  background: rgba(0, 168, 204, 0.1);
+  color: var(--medical-teal);
+  text-transform: uppercase;
+  font-size: 0.9rem;
+}
+
+.performance-table tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.highlight-metric {
+  color: var(--bio-green);
+  font-weight: bold;
+}
+
+.jump-analysis {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  border-left: 4px solid var(--medical-teal);
+  background: rgba(0, 168, 204, 0.05);
+}
+
+.metric-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+  margin-top: 2rem;
+}
+
+.metric-box {
+  padding: 1.5rem;
+  text-align: center;
+  border: 1px solid var(--glass-border);
+  border-radius: 8px;
+  background: var(--glass-bg);
+}
+
+.metric-value {
+  display: block;
+  font-size: 2rem;
+  color: var(--nanobot-gold);
+  font-family: var(--font-header);
+}
+
+.metric-label {
+  font-size: 0.8rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+}

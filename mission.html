@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;700&family=Rajdhani:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <title>MISSION THEATRE | NANOBOT DEFENSE</title>
+    <style>
+        .cinema-mode {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .video-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .video-card {
+            transition: transform 0.3s ease;
+        }
+
+        .video-card:hover {
+            transform: scale(1.02);
+        }
+
+        .thumbnail-container {
+            width: 100%;
+            aspect-ratio: 16/9;
+            background: #000;
+            border-bottom: 1px solid var(--nanobot-gold);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .play-btn {
+            width: 50px;
+            height: 50px;
+            border: 2px solid var(--bio-green);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--bio-green);
+            background: rgba(0, 0, 0, 0.5);
+            opacity: 0.8;
+        }
+
+        .thumbnail-container:hover .play-btn {
+            background: var(--bio-green);
+            color: #000;
+            box-shadow: 0 0 20px var(--bio-green);
+        }
+
+        .report-btn {
+            background: rgba(255, 215, 0, 0.1);
+            color: var(--nanobot-gold);
+            border: 1px solid var(--nanobot-gold);
+            width: 100%;
+            padding: 0.5rem;
+            margin-top: 1rem;
+            font-family: 'Rajdhani', sans-serif;
+            text-transform: uppercase;
+            cursor: pointer;
+        }
+
+        .report-btn:hover {
+            background: var(--nanobot-gold);
+            color: #000;
+        }
+
+        /* Video Modal */
+        .video-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            z-index: 2000;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .video-container {
+            width: 80%;
+            max-width: 1000px;
+            border: 2px solid var(--medical-teal);
+            position: relative;
+        }
+
+        .close-modal {
+            position: absolute;
+            top: -40px;
+            right: 0;
+            color: white;
+            cursor: pointer;
+            font-family: 'Rajdhani', sans-serif;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Scanner Beam Effect -->
+    <div id="scanner-beam" class="scanner-beam"></div>
+
+    <nav>
+        <a href="index.html" class="nav-link">INTELLIGENCE HUB</a>
+        <a href="visualization.html" class="nav-link">VISUALIZATION LAB</a>
+        <a href="mission.html" class="nav-link active">MISSION THEATRE</a>
+    </nav>
+
+    <main>
+        <div class="cinema-mode">
+            <h2 style="margin-bottom: 2rem; border-left: 4px solid var(--malignant-red); padding-left: 1rem;">Kill-Cam
+                Archive</h2>
+
+            <div class="video-grid">
+
+                <!-- Video 1: Blood Sweep -->
+                <div class="video-card glass-panel" style="padding: 1rem;">
+                    <div class="thumbnail-container">
+                        <!-- Placeholder for actual video loaded from assets/videos/ -->
+                        <span style="color: #555;">[NO SIGNAL]</span>
+                        <div
+                            style="position: absolute; top: 0; left: 0; padding: 5px; background: var(--malignant-red); font-size: 0.7rem; color: #fff;">
+                            LIVE REPLAY</div>
+                        <div class="play-btn">▶</div>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <h3>MISSION: BLOOD SWEEP</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">Sector: Arterial Highway 4</p>
+                    </div>
+                    <button class="report-btn" onclick="openReportWithScenario('BLOOD SWEEP')">View Post-Mission
+                        Report</button>
+                </div>
+
+                <!-- Video 2: Brain Purge -->
+                <div class="video-card glass-panel" style="padding: 1rem;">
+                    <div class="thumbnail-container">
+                        <span style="color: #555;">[NO SIGNAL]</span>
+                        <div
+                            style="position: absolute; top: 0; left: 0; padding: 5px; background: var(--malignant-red); font-size: 0.7rem; color: #fff;">
+                            LIVE REPLAY</div>
+                        <div class="play-btn">▶</div>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <h3>MISSION: BRAIN PURGE</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">Sector: Neural Cortex V2</p>
+                    </div>
+                    <button class="report-btn" onclick="openReportWithScenario('BRAIN PURGE')">View Post-Mission
+                        Report</button>
+                </div>
+
+                <!-- Video 3: Breast Tissue Scan -->
+                <div class="video-card glass-panel" style="padding: 1rem;">
+                    <div class="thumbnail-container">
+                        <span style="color: #555;">[NO SIGNAL]</span>
+                        <div
+                            style="position: absolute; top: 0; left: 0; padding: 5px; background: var(--malignant-red); font-size: 0.7rem; color: #fff;">
+                            LIVE REPLAY</div>
+                        <div class="play-btn">▶</div>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <h3>MISSION: BREAST PURGE</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">Sector: Mammary Tissue</p>
+                    </div>
+                    <button class="report-btn" onclick="openReportWithScenario('BREAST PURGE')">View Post-Mission
+                        Report</button>
+                </div>
+
+                <!-- Video 4: Lung Clearance -->
+                <div class="video-card glass-panel" style="padding: 1rem;">
+                    <div class="thumbnail-container">
+                        <span style="color: #555;">[NO SIGNAL]</span>
+                        <div
+                            style="position: absolute; top: 0; left: 0; padding: 5px; background: var(--malignant-red); font-size: 0.7rem; color: #fff;">
+                            LIVE REPLAY</div>
+                        <div class="play-btn">▶</div>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <h3>MISSION: LUNG CLEARANCE</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">Sector: Pulmonary Lobe</p>
+                    </div>
+                    <button class="report-btn" onclick="openReportWithScenario('LUNG CLEARANCE')">View Post-Mission
+                        Report</button>
+                </div>
+
+                <!-- Video 5: Liver Restoration -->
+                <div class="video-card glass-panel" style="padding: 1rem;">
+                    <div class="thumbnail-container">
+                        <span style="color: #555;">[NO SIGNAL]</span>
+                        <div
+                            style="position: absolute; top: 0; left: 0; padding: 5px; background: var(--malignant-red); font-size: 0.7rem; color: #fff;">
+                            LIVE REPLAY</div>
+                        <div class="play-btn">▶</div>
+                    </div>
+                    <div style="margin-top: 1rem;">
+                        <h3>MISSION: LIVER RESTORE</h3>
+                        <p style="font-size: 0.9rem; color: var(--text-secondary);">Sector: Hepatic Portal</p>
+                    </div>
+                    <button class="report-btn" onclick="openReportWithScenario('LIVER RESTORE')">View Post-Mission
+                        Report</button>
+                </div>
+
+            </div>
+        </div>
+
+        <div id="video-modal" class="video-modal" onclick="closeVideo()">
+            <div class="video-container" onclick="event.stopPropagation()">
+                <div class="close-modal" onclick="closeVideo()">[ CLOSE X ]</div>
+                <img id="mission-video" src="" style="width: 100%; display: block;">
+            </div>
+        </div>
+
+        <!-- Post-Mission Report Overlay -->
+        <div id="report-modal" class="video-modal" onclick="closeReport()">
+            <div class="glass-panel" style="width: 90%; max-width: 600px; padding: 2rem; position: relative;"
+                onclick="event.stopPropagation()">
+                <div class="close-modal" onclick="closeReport()">[ CLOSE X ]</div>
+                <h2 id="report-title"
+                    style="color: var(--medical-teal); border-bottom: 2px solid var(--medical-teal); padding-bottom: 0.5rem;">
+                    POST-MISSION REPORT</h2>
+
+                <div style="margin-top: 1.5rem;">
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span style="color: var(--text-secondary);">TARGETS NEUTRALIZED:</span>
+                        <span id="report-neutralized" style="color: var(--malignant-red); font-weight: bold;">--</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span style="color: var(--text-secondary);">HEALTHY CELLS PRESERVED:</span>
+                        <span id="report-preserved" style="color: var(--bio-green);">--</span>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                        <span style="color: var(--text-secondary);">SYSTEM ACCURACY:</span>
+                        <span id="report-accuracy" class="highlight-metric">--</span>
+                    </div>
+                </div>
+
+                <div id="report-gat-metrics"
+                    style="margin-top: 2rem; padding-top: 1rem; border-top: 1px solid var(--glass-border);">
+                    <h3 style="font-size: 0.9rem; color: var(--nanobot-gold);">ENGINEERING BENCHMARKS</h3>
+                    <div class="metric-grid"
+                        style="grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1rem;">
+                        <div class="metric-box" style="padding: 0.5rem;">
+                            <span class="metric-value" style="font-size: 1.2rem;">100%</span>
+                            <span class="metric-label" style="font-size: 0.6rem;">IK SOLVER</span>
+                        </div>
+                        <div class="metric-box" style="padding: 0.5rem;">
+                            <span class="metric-value" style="font-size: 1.2rem;">92%</span>
+                            <span class="metric-label" style="font-size: 0.6rem;">AVOIDANCE</span>
+                        </div>
+                        <div class="metric-box" style="padding: 0.5rem;">
+                            <span class="metric-value" style="font-size: 1.2rem;">1.6s</span>
+                            <span class="metric-label" style="font-size: 0.6rem;">ENGULF</span>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 2rem; text-align: center;">
+                    <div style="font-family: var(--font-header); color: var(--bio-green); font-size: 1.2rem;">STATUS:
+                        DESTRUCTION COMPLETE</div>
+                    <p style="font-size: 0.8rem; color: var(--text-secondary); margin-top: 0.5rem;">SECURE LINK TO
+                        SCANNER CLOUD ACTIVE</p>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script type="module">
+        import '/main.js';
+
+        window.openReportWithScenario = async (organ) => {
+            const scenarioMap = {
+                'BLOOD SWEEP': 'blood',
+                'BRAIN PURGE': 'brain',
+                'BREAST PURGE': 'breast',
+                'LUNG CLEARANCE': 'lung',
+                'LIVER RESTORE': 'liver'
+            };
+
+            const scenarioName = scenarioMap[organ];
+            if (scenarioName) {
+                await window.switchScenario(scenarioName);
+            }
+            window.openReport(organ);
+        };
+
+        window.playMissionVideo = (organ) => {
+            const videoMap = {
+                'BLOOD SWEEP': 'BLOOD_AI_Nano_Surgery.gif',
+                'BRAIN PURGE': 'BRAIN_AI_Nano_Surgery.gif',
+                'BREAST PURGE': 'BREAST_AI_Nano_Surgery.gif',
+                'LUNG CLEARANCE': 'LUNG_AI_Nano_Surgery.gif',
+                'LIVER RESTORE': 'LIVER_AI_Nano_Surgery.gif'
+            };
+
+            const videoFile = videoMap[organ];
+            if (videoFile) {
+                const videoEl = document.getElementById('mission-video');
+                videoEl.src = `assets/videos/${videoFile}`;
+                document.getElementById('video-modal').style.display = 'flex';
+            }
+        };
+
+        window.closeVideo = () => {
+            document.getElementById('video-modal').style.display = 'none';
+        };
+
+        // Add click events to thumbnails
+        document.querySelectorAll('.thumbnail-container').forEach(container => {
+            container.style.cursor = 'pointer';
+            container.onclick = () => {
+                const title = container.parentElement.querySelector('h3').textContent.replace('MISSION: ', '');
+                playMissionVideo(title);
+            };
+        });
+    </script>
+</body>
+
+</html>

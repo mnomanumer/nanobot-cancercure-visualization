@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;700&family=Rajdhani:wght@500;700&display=swap"
+    rel="stylesheet">
+
+  <link rel="stylesheet" href="styles.css">
+  <title>NANOBOT DEFENSE SYSTEM</title>
+</head>
+
+<body>
+  <!-- Scanner Beam Effect -->
+  <div id="scanner-beam" class="scanner-beam"></div>
+
+  <!-- Navigation -->
+  <nav>
+    <a href="index.html" class="nav-link active">INTELLIGENCE HUB</a>
+    <a href="visualization.html" class="nav-link">VISUALIZATION LAB</a>
+    <a href="mission.html" class="nav-link">MISSION THEATRE</a>
+  </nav>
+
+  <main>
+    <div style="text-align: center; margin-bottom: 4rem; margin-top: 2rem;">
+      <h1 style="font-size: 4rem; color: var(--medical-teal);">NANOBOT DEFENSE FLEET</h1>
+      <p style="font-size: 1.2rem; color: var(--text-secondary);">AUTONOMOUS ONCOLOGY INTERVENTION SYSTEM</p>
+    </div>
+
+    <!-- Intelligence Cards -->
+    <div class="card-grid">
+
+      <!-- GATv2 Card -->
+      <div class="intel-card glass-panel" style="border-top: 2px solid var(--malignant-red);">
+        <div class="card-icon">
+          <svg width="80" height="80" viewBox="0 0 100 100">
+            <g stroke="#FF3131" stroke-width="1.5">
+              <line x1="30" y1="30" x2="70" y2="30" />
+              <line x1="30" y1="30" x2="30" y2="70" />
+              <line x1="70" y1="30" x2="70" y2="70" />
+              <line x1="30" y1="70" x2="70" y2="70" />
+              <line x1="30" y1="30" x2="70" y2="70" />
+            </g>
+            <circle cx="30" cy="30" r="4" fill="#FF3131" />
+            <circle cx="70" cy="30" r="4" fill="#FF3131" />
+            <circle cx="30" cy="70" r="4" fill="#FF3131" />
+            <circle cx="70" cy="70" r="4" fill="#FF3131" />
+            <circle cx="50" cy="50" r="6" fill="#00FF41" />
+          </svg>
+        </div>
+        <h3 style="color: var(--malignant-red);">1. GATv2 Model</h3>
+        <p style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.9rem;">
+          <strong>Primary Detection & Spatial Modeling</strong><br>
+          Methodology: Treats the organ as a Non-Euclidean Graph. Calculates "Attention Weights" between 600+ cellular
+          nodes to determine malignancy based on neighborhood relationships.
+        </p>
+        <div style="margin-top: 1rem; font-family: var(--font-header); font-size: 0.8rem; color: var(--bio-green);">
+          METRIC: HIGH TPR / REDUCED FALSE ALARMS
+        </div>
+      </div>
+
+      <!-- MAML Card -->
+      <div class="intel-card glass-panel" style="border-top: 2px solid var(--medical-teal);">
+        <div class="card-icon">
+          <svg width="80" height="80" viewBox="0 0 100 100">
+            <circle cx="50" cy="20" r="5" fill="#00FF41" class="node-pulse" />
+            <circle cx="20" cy="50" r="5" fill="#00FF41" opacity="0.7" />
+            <circle cx="80" cy="50" r="5" fill="#00FF41" opacity="0.7" />
+            <circle cx="35" cy="80" r="5" fill="#00FF41" opacity="0.5" />
+            <circle cx="65" cy="80" r="5" fill="#00FF41" opacity="0.5" />
+            <line x1="50" y1="20" x2="20" y2="50" stroke="#00FF41" stroke-width="1" opacity="0.5" />
+            <line x1="50" y1="20" x2="80" y2="50" stroke="#00FF41" stroke-width="1" opacity="0.5" />
+            <animate attributeName="opacity" values="0.5;1;0.5" dur="3s" repeatCount="indefinite" />
+          </svg>
+        </div>
+        <h3 style="color: var(--medical-teal);">2. MAML Core</h3>
+        <p style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.9rem;">
+          <strong>Cross-Organ Adaptation</strong><br>
+          Methodology: The "Meta-Brain" that learns how to learn. Uses gradient-based optimization to recalibrate GATv2
+          weights with only 5-10 local samples.
+        </p>
+        <div style="margin-top: 1rem; font-family: var(--font-header); font-size: 0.8rem; color: var(--medical-teal);">
+          LATENCY: < 1.5ms PER BIO-TRANSITION </div>
+        </div>
+
+        <!-- IK-Kinematics Card -->
+        <div class="intel-card glass-panel" style="border-top: 2px solid var(--nanobot-gold);">
+          <div class="card-icon">
+            <svg width="80" height="80" viewBox="0 0 100 100">
+              <rect x="35" y="35" width="30" height="30" stroke="#FFD700" fill="none" stroke-width="2" />
+              <path d="M35 35 L15 15" stroke="#FFD700" stroke-width="1" stroke-dasharray="4 2" />
+              <path d="M65 35 L85 15" stroke="#FFD700" stroke-width="1" stroke-dasharray="4 2" />
+              <path d="M50" cy="50" r="5" fill="#FFD700" />
+            </svg>
+          </div>
+          <h3 style="color: var(--nanobot-gold);">3. IK Kinematics</h3>
+          <p style="margin-top: 1rem; color: var(--text-secondary); font-size: 0.9rem;">
+            <strong>Physical Intervention Engine</strong><br>
+            Inverse Kinematics: 100% reachability within 3D Cartesian bounds. Maintains 92% bypass rate for healthy
+            barriers during high-speed navigation.
+          </p>
+          <div
+            style="margin-top: 1rem; font-family: var(--font-header); font-size: 0.8rem; color: var(--nanobot-gold);">
+            NEUTRALIZATION: 1.6s PER TARGET
+          </div>
+        </div>
+
+      </div>
+
+      <!-- Performance Benchmarks -->
+      <section class="benchmark-section glass-panel" style="margin-top: 4rem;">
+        <h2 style="color: var(--medical-teal); margin-bottom: 2rem;">📈 Performance Benchmarks (Verified)</h2>
+        <table class="performance-table">
+          <thead>
+            <tr>
+              <th>Scenario</th>
+              <th>Primary Model</th>
+              <th>Accuracy</th>
+              <th>F1-Score</th>
+              <th>Confidence</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Bloodstream</td>
+              <td>GATv2 (Base)</td>
+              <td class="highlight-metric">83.0%</td>
+              <td>0.81</td>
+              <td>0.88</td>
+            </tr>
+            <tr>
+              <td>Lung (Alveoli)</td>
+              <td>GATv2 + MAML</td>
+              <td class="highlight-metric">95.5%</td>
+              <td>0.94</td>
+              <td>0.92</td>
+            </tr>
+            <tr>
+              <td>Brain (Neural)</td>
+              <td>GATv2 + MAML</td>
+              <td class="highlight-metric">98.2%</td>
+              <td>0.97</td>
+              <td>0.96</td>
+            </tr>
+          </tbody>
+        </table>
+
+        <div class="jump-analysis">
+          <h3>Analysis of the "Accuracy Jump"</h3>
+          <p style="margin-top: 1rem; color: var(--text-secondary);">
+            The jump from <strong>83% to 98.2%</strong> is the most significant proof of the project's success. It
+            demonstrates that the Meta-Learning methodology successfully filtered out "Biological Noise" (like blood
+            turbulence or neural electrical interference), allowing for nearly perfect targeting in complex organs.
+          </p>
+        </div>
+
+        <div class="metric-grid">
+          <div class="metric-box">
+            <span class="metric-value">100%</span>
+            <span class="metric-label">IK Solver Success</span>
+          </div>
+          <div class="metric-box">
+            <span class="metric-value">92%</span>
+            <span class="metric-label">Collision Avoidance</span>
+          </div>
+          <div class="metric-box">
+            <span class="metric-value">1.6s</span>
+            <span class="metric-label">Neutralization Speed</span>
+          </div>
+        </div>
+      </section>
+  </main>
+
+  <script type="module" src="/main.js"></script>
+</body>
+
+</html>

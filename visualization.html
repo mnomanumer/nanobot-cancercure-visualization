@@ -1,0 +1,276 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=JetBrains+Mono:wght@400;700&family=Rajdhani:wght@500;700&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <title>VISUALIZATION LAB | NANOBOT DEFENSE</title>
+    <style>
+        .viz-layout {
+            display: flex;
+            height: 75vh;
+            gap: 1.5rem;
+        }
+
+        .sidebar {
+            width: 320px;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .main-canvas {
+            flex: 1;
+            position: relative;
+            background: #0d1117;
+            border: 1px solid var(--glass-border);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+
+        .data-overlay {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            width: 280px;
+            background: rgba(13, 17, 23, 0.95);
+            border: 1px solid var(--medical-teal);
+            padding: 1.2rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.85rem;
+            box-shadow: 0 0 20px rgba(0, 168, 204, 0.2);
+            pointer-events: none;
+        }
+
+        .control-panel {
+            margin-bottom: 2rem;
+            padding: 1rem;
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--glass-border);
+            border-radius: 8px;
+        }
+
+        .control-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        select,
+        input {
+            background: #1a1f26;
+            border: 1px solid var(--glass-border);
+            color: white;
+            padding: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+            border-radius: 4px;
+        }
+
+        .feature-radar {
+            width: 100%;
+            height: 100%;
+        }
+
+        .node-label {
+            font-size: 10px;
+            fill: #94a3b8;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="scanner-beam" class="scanner-beam"></div>
+
+    <nav>
+        <a href="index.html" class="nav-link">INTELLIGENCE HUB</a>
+        <a href="visualization.html" class="nav-link active">VISUALIZATION LAB</a>
+        <a href="mission.html" class="nav-link">MISSION THEATRE</a>
+    </nav>
+
+    <main>
+        <div class="control-panel">
+            <div class="control-group">
+                <label style="font-size: 0.8rem; color: var(--text-secondary);">ORGAN SYSTEM</label>
+                <select id="scenario-select" onchange="window.switchAndRefresh(this.value)">
+                    <option value="blood">Blood (Arterial)</option>
+                    <option value="brain">Brain (Neural)</option>
+                    <option value="breast">Breast (Tissue)</option>
+                    <option value="liver">Liver (Hepatic)</option>
+                    <option value="lung">Lung (Pulmonary)</option>
+                </select>
+            </div>
+            <div class="control-group">
+                <label style="font-size: 0.8rem; color: var(--text-secondary);">CELL INSPECTOR (ID: 0-599)</label>
+                <input type="number" id="cell-id-input" min="0" max="599" value="0"
+                    onchange="window.updateCellSelection()">
+            </div>
+            <div class="control-group" id="global-stats">
+                <label style="font-size: 0.8rem; color: var(--text-secondary);">SYSTEM ACCURACY</label>
+                <div id="stat-accuracy"
+                    style="color: var(--medical-teal); font-weight: bold; font-family: 'JetBrains Mono';">Loading...
+                </div>
+            </div>
+        </div>
+
+        <div class="viz-layout">
+            <div class="main-canvas glass-panel">
+                <div class="plot-container" style="width: 100%; height: 100%; position: relative;">
+                    <!-- Dynamic SVG Radar Chart -->
+                    <svg id="feature-radar-svg" viewBox="0 0 400 400" class="feature-radar">
+                        <!-- Grid circles -->
+                        <circle cx="200" cy="200" r="150" fill="none" stroke="#222" stroke-width="1" />
+                        <circle cx="200" cy="200" r="100" fill="none" stroke="#222" stroke-width="1" />
+                        <circle cx="200" cy="200" r="50" fill="none" stroke="#222" stroke-width="1" />
+                        <!-- Axis lines -->
+                        <g id="radar-axes"></g>
+                        <!-- Data path -->
+                        <path id="radar-path" fill="rgba(0, 168, 204, 0.3)" stroke="var(--medical-teal)"
+                            stroke-width="2" />
+                    </svg>
+
+                    <div
+                        style="position: absolute; top: 10px; left: 10px; color: var(--text-secondary); font-size: 0.7rem; font-family: 'JetBrains Mono';">
+                        8D FEATURE VECTOR ANALYSIS
+                    </div>
+                </div>
+
+                <div id="data-overlay" class="data-overlay">
+                    <h4
+                        style="color: var(--medical-teal); border-bottom: 1px solid var(--glass-border); margin-bottom: 0.8rem; font-size: 0.9rem;">
+                        CELL ANALYSIS</h4>
+                    <div id="cell-info">
+                        <p style="color: var(--text-secondary);">ID: <span id="info-id" style="color: white">--</span>
+                        </p>
+                        <p style="color: var(--text-secondary);">TYPE: <span id="info-type"
+                                style="color: white">--</span></p>
+                        <p style="color: var(--text-secondary);">POS: <span id="info-pos" style="color: white">--</span>
+                        </p>
+                        <p style="color: var(--text-secondary);">CONF: <span id="info-conf"
+                                style="color: white">--</span></p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="sidebar">
+                <div class="glass-panel" style="flex: 1; padding: 1.2rem;">
+                    <h4 style="font-size: 0.9rem;">Scenario Metadata</h4>
+                    <div id="scenario-meta" style="margin-top: 1rem; font-family: 'JetBrains Mono'; font-size: 0.8rem;">
+                        <p style="margin-bottom: 0.5rem;">Target Cells: <span id="meta-target"
+                                style="color: var(--malignant-red);">--</span></p>
+                        <p style="margin-bottom: 0.5rem;">Healthy Cells: <span id="meta-healthy"
+                                style="color: var(--bio-green);">--</span></p>
+                        <p style="margin-bottom: 0.5rem;">Total Count: <span id="meta-total">--</span></p>
+                    </div>
+                </div>
+
+                <div class="glass-panel" style="flex: 1; padding: 1.2rem; overflow: hidden;">
+                    <h4 style="font-size: 0.9rem;">Observation Log</h4>
+                    <div id="observation-log"
+                        style="font-size: 0.75rem; color: #666; font-family: 'JetBrains Mono'; margin-top: 1rem;">
+                        [SESSION INITIALIZED]<br>
+                        [WAITING FOR DATA...]
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script type="module">
+        import '/main.js';
+
+        const labels = ['Size', 'Gran', 'Nuc', 'Mit', 'Shp', 'Adh', 'Bare', 'Chrom'];
+
+        window.switchAndRefresh = async (scenario) => {
+            const data = await window.switchScenario(scenario);
+            renderMetadata(data);
+            updateCellSelection();
+        };
+
+        function renderMetadata(data) {
+            document.getElementById('stat-accuracy').textContent = (data.metadata.accuracy * 100).toFixed(1) + '%';
+            document.getElementById('meta-target').textContent = data.metadata.cancer_cells;
+            document.getElementById('meta-healthy').textContent = data.metadata.healthy_cells;
+            document.getElementById('meta-total').textContent = data.metadata.total_cells;
+        }
+
+        window.updateCellSelection = () => {
+            const data = window.getCurrentScenario();
+            if (!data) return;
+
+            const id = parseInt(document.getElementById('cell-id-input').value);
+            const cell = data.cells.find(c => c.id === id) || data.cells[0];
+
+            // Update Info Panel
+            document.getElementById('info-id').textContent = cell.id;
+            document.getElementById('info-type').textContent = cell.ai_prediction.predicted_class === 1 ? 'MALIGNANT' : 'HEALTHY';
+            document.getElementById('info-type').style.color = cell.ai_prediction.predicted_class === 1 ? 'var(--malignant-red)' : 'var(--bio-green)';
+            document.getElementById('info-pos').textContent = cell.position.map(p => p.toFixed(1)).join(', ');
+            document.getElementById('info-conf').textContent = (cell.ai_prediction.confidence * 100).toFixed(2) + '%';
+
+            updateRadar(cell.features);
+            logObservation(cell);
+        };
+
+        function updateRadar(features) {
+            const svg = document.getElementById('feature-radar-svg');
+            const path = document.getElementById('radar-path');
+            const axesGroup = document.getElementById('radar-axes');
+            axesGroup.innerHTML = '';
+
+            const centerX = 200;
+            const centerY = 200;
+            const radius = 150;
+            const angleStep = (Math.PI * 2) / 8;
+
+            let points = [];
+
+            // Features are normalized in JSON, but let's scaling them for visualization
+            // Some are negative, so we map -3 to 3 -> 0 to radius
+            features.forEach((f, i) => {
+                const angle = i * angleStep - Math.PI / 2;
+                const value = Math.max(0, Math.min(3, f + 1.5)) / 3; // Clamp to 0-3 range
+                const x = centerX + Math.cos(angle) * (value * radius);
+                const y = centerY + Math.sin(angle) * (value * radius);
+                points.push(`${x},${y}`);
+
+                // Draw Axis line
+                const ax = centerX + Math.cos(angle) * radius;
+                const ay = centerY + Math.sin(angle) * radius;
+                axesGroup.innerHTML += `<line x1="${centerX}" y1="${centerY}" x2="${ax}" y2="${ay}" stroke="#333" />`;
+
+                // Label
+                const lx = centerX + Math.cos(angle) * (radius + 20);
+                const ly = centerY + Math.sin(angle) * (radius + 20);
+                axesGroup.innerHTML += `<text x="${lx}" y="${ly}" class="node-label" text-anchor="middle">${labels[i]}</text>`;
+            });
+
+            path.setAttribute('d', `M ${points.join(' L ')} Z`);
+        }
+
+        function logObservation(cell) {
+            const log = document.getElementById('observation-log');
+            const time = new Date().toLocaleTimeString();
+            log.innerHTML = `[${time}] inspecting cell_${cell.id}<br>` +
+                `[analysis] prob: ${cell.ai_prediction.cancer_probability.toFixed(4)}<br>` +
+                `[result] ${cell.ai_prediction.predicted_class === 1 ? 'THREAT DETECTED' : 'NOMINAL'}<br><br>` +
+                log.innerHTML;
+        }
+
+        // Wait for main.js to load default
+        window.addEventListener('scenario-ready', (e) => {
+            renderMetadata(e.detail.data);
+            updateCellSelection();
+        });
+    </script>
+</body>
+
+</html>
